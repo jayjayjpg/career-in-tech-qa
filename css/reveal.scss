@@ -1444,3 +1444,54 @@ body {
 .zoomed .reveal .roll span:after {
 	visibility: hidden;
 }
+
+.row {
+  &:after {
+    content:"";
+    display: table-cell;
+    clear: both;
+  }
+}
+
+.col {
+  &-1 {
+    width: 100%;
+  float: left;
+
+  }
+
+  &-2 {
+    width: 50%;
+  float: left;
+
+  }
+
+  &-3 {
+    width: 33.3333%;
+  float: left;
+
+  }
+
+  &-3comp {
+    width: 66.6666%;
+  float: left;
+
+  }
+}
+
+.reveal {
+.index-slide {
+  h1, h2, h3, p {
+    color: #ffffff;
+    text-shadow: none;
+  }
+ }
+  img {
+    &.no-border {
+       border: none !important;
+       box-shadow: none !important;
+     }
+
+  }
+}
+

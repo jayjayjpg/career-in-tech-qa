@@ -1166,7 +1166,6 @@ body {
 .reveal .overlay .viewport {
   position: absolute;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   top: 40px;
@@ -1363,3 +1362,32 @@ body {
 
 .zoomed .reveal .roll span:after {
   visibility: hidden; }
+
+.row:after {
+  content: "";
+  display: table-cell;
+  clear: both; }
+
+.col-1 {
+  width: 100%;
+  float: left; }
+
+.col-2 {
+  width: 50%;
+  float: left; }
+
+.col-3 {
+  width: 33.3333%;
+  float: left; }
+
+.col-3comp {
+  width: 66.6666%;
+  float: left; }
+
+.reveal .index-slide h1, .reveal .index-slide h2, .reveal .index-slide h3, .reveal .index-slide p {
+  color: #ffffff;
+  text-shadow: none; }
+
+.reveal img.no-border {
+  border: none !important;
+  box-shadow: none !important; }

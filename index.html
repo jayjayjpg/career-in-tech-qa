@@ -1,13 +1,21 @@
 <!doctype html>
-<html>
+<html lang="en">
+
 	<head>
 		<meta charset="utf-8">
+
+		<title>A Glimmer Of Hope - Building Modern Web Components With Glimmer.js</title>
+
+		<meta name="description" content="A Glimmer Of Hope - Presentation about web components and how to create them using the library Glimmer.js. Presented By Jessica Jordan @ Women Who Code Meetup, Berlin, May 2017">
+		<meta name="author" content="Jessica Jordan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
-
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -20,31 +28,474 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
 	</head>
+
 	<body>
+
 		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section class="index-slide" data-background-image="./img/glimmer2.gif">
+					<h1>A Glimmer of Hope</h1>
+					<h3>The Modern State of Web Components with Glimmer.js</h3>
+					<p>
+                                          @Women Who Code, May 30th
+					</p>
+				</section>
+
+				<section>
+					<h2>Hi everyone!</h2>
+					<h4>
+                                          Jessica Jordan
+					</h4> 
+                                        <small>@jjordan_dev</small><br/>
+                                        <div class="row">
+                                        <div class="col-3">
+                                        <p class="fragment fade-up"><img height="200" src="./img/tomster.png" ></p>
+                                        </div>
+                                        <div style="margin-top: 1em;"  class="col-3comp">
+                                        <small class="fragment fade-up">Front-End Developer @Leadfeeder</small>
+                                        <small class="fragment fade-up"><a href="https://emberjsberlin.herokuapp.com">Ember.js Berlin</a> Co-Organizer w/ Clemens Mueller & Joschka Kintscher</small>
+                                        <small class="fragment fade-up">Opentechschool Berlin Mentor + Co-Organizer</small>
+				        </div>
+                                        </div>
+                                </section>
+                                <section class="index-slide" data-background-color="#8b743d">
+                                  <h1>The current state of the modern web</h1>
+                                </section>
+                                <section>
+                                  <h2>The Web not too long ago</h2>
+                                  <img height="500" src="./img/web-in-2011.png" alt="Web in 2011 - From Blog Post - EmberConf 2017 State of the Union. Tom Dale, Yehuda Katz and Godfrey Chan" />
+                                  <small class="col-2"></small><small class="col-2" style="float: right; font-style: italic;"><a href="https://www.emberjs.com/blog/2017/04/05/emberconf-2017-state-of-the-union.html" target="stateoftheunion">Source: EmberConf 2017:State of the Union. By Tom Dale, Yehuda Katz and Godfrey Chan</a></small>
+                                </section>
+                                <section>
+                                  <img height="250" src="./img/browsers.png" alt="Browser Icons - Opera Safari Firefox Chrome Internet Explorer">
+                                  <div class="row"">
+                                    <article class="col-3 fragment fade-up"><img class="no-border" height="180" src="./img/html5.png" alt="HTML5 Logo" /></article>
+                                    <article class="col-3 fragment fade-up"><img class="no-border" height="180" src="./img/css3.png" alt="CSS3 Logo" /></article>
+                                    <article class="col-3 fragment fade-up"><img class="no-border" height="180" src="./img/js.png" alt="JavaScript Logo" /></article>
+                                  </div>
+                                  <h3 class="fragment fade-up">Browsers evolve to become robust application platforms</h3>
+                                  <aside class="notes">
+                                  <h2>Developing Web Apps in 2017</h2>
+                                  <ul>
+                                    <li class="fragment fade-up">Ambitious applications both on the front-end and back-end</li>
+                                    <li class="fragment fade-up">Agile development / continuous integration</li>
+                                    <li class="fragment fade-up">Writing future-proof, browser-compliant code - transpilation & other build tools</li>
+                                    <li class="fragment fade-up">Adoption of best practices for complex software development</li>
+                                  </ul>
+                                  </aside>
+                                </section>
+                                <section>
+                                   <h2>JavaScript MV* framework everywhere</h2>
+                                   <div class="row">
+                                     <div class="col-3"><img height="150" src="./img/ember.png"></div>
+                                     <div class="col-3"><img height="150" src="./img/react.png"></div>
+                                     <div class="col-3"><img height="150" src="./img/angular.png"></div>
+                                   </div>
+                                   <div class="row">
+                                     <div class="col-2"><img height="150" src="./img/backbone.png"></div>
+                                     <div class="col-2"><img height="150" src="./img/vue.png"></div>
+                                   </div>
+                                   <p class="fragment fade-up">...and components, too!</p>
+<aside class="notes">show how js frameworks grow in their size, different approaches in different frameworks, advantages drawbacks monolith vs microservice approach
+development of components already happening in the frameworks, but still included in a larger library
+how this leads to the rise of web components</aside>
+                                </section>
+                                <section>
+                                  <h2>Example for JS Framework Components: Ember's Component API</h2>
+<div class="row">
+  <div class="col-1">
+                                    <pre class="fragment fade-up"><code>// app/components/my-component.js
+export default Ember.Component({
+  tagName: 'article',
+  classNames: ['my-component'],
+  name: null,
+  title: Ember.computed('name', function() {
+    return `${this.get('name')}'s Component;
+  })
+});
+</code></pre>
+<pre class="fragment fade-up"><code>// app/templates/components/my-component.hbs
+<h2>{{title}}</h2>
+</code></pre> 
+</div>
+
+                                </section>
+                                <section>
+                                  <h2>Example for JS Framework Components: Ember's Component API</h2>
+<div class="row">
+  <div class="col-1">
+                                    <pre class="fragment fade-up"><code>// app/templates/another-template-in-the-app.hbs
+{{my-component name="Racoon Hero"}}
+</code></pre>
+<pre class="fragment fade-up"><code>// ...will be rendered as follows in the DOM
+  <article class="my-component">
+    <h2>Racoon Hero's Component</h2>
+  </article>
+</code></pre>
+</div>
+                                </section>
+
+                                <section class="index-slide" data-background-color="#8b743d">
+                                  <h1>The current state of Webcomponents</h1>
+                                </section>
+                                <section>
+                                  <h2>What are webcomponents?</h2>
+                                  <p class="fragment fade-up">UI components created for easy reusability and extensibility</p>
+                                  <p class="fragment fade-up">based on open (evolving) web standards</p>
+                                  <ul class="fragment fade-up">
+                                    <li>Custom Elements</li>
+<li>HTML Templates</li>
+<li>Shadow DOM</li>
+<li>HTML Imports</li>
+                                  </ul>
+<aside class="notes">
+boring dry excerpt from spec, some diagram explaining the concept of componentizing front end functionality
+</aside>                    
+            </section>
+                                <section>
+                                  <h2>Are we componentized yet?</h2>
+                                  <a href="http://jonrimmer.github.io/are-we-componentized-yet/" target="caniusecomp" title="Are we componentized yet? Browser support Diagram by Jon Rimmer"><img height="450" class="fragment fade-up" src="./img/caniuse.png"/></a>
+<small style="font-style: italic;"><a href="http://jonrimmer.github.io/are-we-componentized-yet/" target="caniusecomp">Are we componentized yet? Jon Rimmer, May 30th 2017</a></small>
+                                </section>
+                                <section>
+                                  <h2>Easy polyfilling with component libraries</h2>
+                                  <div class="row">
+                                    <div class="col-2 fragment fade-up"><img class="no-border" height="130" src="./img/polymer.png" /></div>
+                                    <div class="col-2 fragment fade-up"><img class="no-border" height="130" src="./img/xtag.png" /></div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-2 fragment fade-up"><img class="no-border" height="130" src="./img/bosonic.png" /></div>
+                                    <div class="col-2 fragment fade-up"><img class="no-border" height="130" src="./img/slim.png" /></div>
+                                  </div>
+                                  <p class="fragment fade-up">Polyfills + easy-to-use component libraries out-of-the box</p>
+                                </section>
+                                <section>
+                                  <h2>Learning yet another framework?</h2>
+                                  <p class="fragment fade-up">The Ember community presents its own solution</p>
+                                  <img class="fragment fade-up no-border" height="300" src="./img/ember.png"/>
+                                </section>
+                                <section class="index-slide" data-background-color="#8b743d" data-background-image="./img/sparks.gif">
+                                  <h1>Creating Webcomponents with Glimmer.js</h1>
+                                </section>
+                                <section>
+                                  <h2>What is Glimmer.js?</h2>
+                                  <p style="font-style: italic;">Create re-usable UI widgets based on convention over configuration</p>
+                                  <p class="fragment fade-up">Using Ember's improved rendering engine: Glimmer 2</p>
+                                  <p class="fragment fade-up">Using Ember's battle-tested tooling</p>
+                                  <aside class="notes">
+Glimmer uses Ember CLI, the battle-tested command-line interface tool (CLI) from the Ember project, to help you create and manage your applications. It provides the following features, among others:
+
+Glimmer 2 super-fast - in Ember since 2.10, especially high-performant regarding rerenders but also pretty good for initial load
+Byte-size of the Ember framework itself
+Byte-size of real-world Ember applications post-build
+Parse and initial eval time of JavaScript payloads in the browser
+Ember’s initial template render performance
+Ember’s template re-render performance
+
+Creating a new application with a conventional project layout
+A build pipeline with testing, development, and production environments
+TypeScript support out-of-the-box
+Generators for components and helpers
+                                  </aside>
+                                </section>
+<section>
+  <h2>Creating our first web component</h2>
+  <a href="http://localhost:4199" target="racoondemo"><img src="./img/demo.jpg" alt="Racoon Demo Web Component with Glimmer.js" height="400" /></a>
+</section>
+                                <section>
+                                  <h2>Glimmer.js Tooling and File Structure</h2>
+                                  <div class="row">
+                                  <div class="col-2">
+                                  <img class="fragment fade-up no-border" height="200" src="./img/embercli.png" alt="Ember CLI - Build Tool for Ember Apps - Logo" />
+                                  </div>
+                                  <div class="col-2">
+                                     <img class="fragment fade-up no-border" height="200" src="./img/yarn.png" alt="Yarn - Package Manager for Web Apps - Logo" />
+                                  </div>
+                                  </div>
+                                  <p class="fragment fade-up">Project serving, building, testing and generators included</p>
+<div class="row">
+<pre class="fragment fade-up col-1"><code>// getting ready with yarn! 
+  yarn global add ember-cli@2.14.0-beta.1
+</code></pre>
+<pre class="fragment fade-up col-1"><code>// or staying old-school with npm ;-)           
+  npm install -g ember-cli@2.14.0-beta.1
+</code></pre>
+</div>
+                                </section>
+                                <section>
+                                  <h2>Building a webcomponent overview</h2>
+<pre class="fragment fade-up col-1"><code>// creating a new Glimmer app for our web component
+  ember new comic-panel -b @glimmer/blueprint --web-component
+</code></pre>
+<pre class="fragment fade-up col-1"><code>// creating a new Glimmer project
+comic-panel/
+  - config/
+  - dist/
+  - public/
+  - src/
+    -- index.ts
+    -- main.ts
+    -- ui/
+      --- style/
+      --- components/comic-panel/
+        ---- component.ts
+        ---- template.ts
+</code></pre>
+                                </section>
+<section>
+  <h2>Leveraging Type declarations with TypeScript</h2>
+  <img src="./img/ts.png" alt="Typescript" height="300"/>
+  <p class="fragment fade-up">Allow type annotations for more descriptive and scalable code</p>
+</section>
+                                <section>
+                                  <h2>Tracking Property Changes</h2>
+<pre class="fragment fade-up"><code>
+import Component, { tracked } from "@glimmer/component";
+
+export default class ComicPanel extends Component {
+
+  @tracked isAnimationRunning: boolean = false;
+
+  @tracked('isAnimationRunning')
+  get isPlaying() {
+    return this.isAnimationRunning;
+  }
+
+}
+</code></pre>
+                                </section>
+                                <section>
+                                  <h2>Handling State</h2>
+<pre class="fragment fade-up"><code>
+// src/ui/components/comic-panel/component.ts
+import Component, { tracked } from "@glimmer/component";
+
+export default class ComicPanel extends Component {
+ // ...
+
+  togglePlayState() {
+    this.isAnimationRunning = !this.isAnimationRunning;
+    if (this.isAnimationRunning) {
+      this.animation.play();
+    }
+    else {
+      this.animation.pause();
+    }
+  }
+}
+</code></pre>
+                                </section>
+<section>
+  <h2>Web Animations API</h2>
+  <small>Powerful Web API for creating animation and controlling their playback</small>
+  <div class="row">
+   <div class="col-1">
+     <p>The KeyframeEffect interface</p>
+<pre class="fragment fade-up"><code>
+var rotating = [
+  { transform: `rotate(0) translate3D(-50%, -50%, 0)`,
+    color: '#000'
+  },
+  { color: '#431236',
+    offset: 0.333
+  },
+  { transform: 'rotate(360deg) translate3D(-50%, -50%, 0)',
+    color: '#000'
+  }
+];
+</code></pre>
+   </div>
+  </div>
+</section>
+
+<section>
+  <h2>Web Animations API</h2>
+  <small>Powerful Web API for creating animation and controlling their playback</small>
+  <div class="row">
+   <div class="col-1 fragment fade-up">
+     <p>The Timeline interface</p>
+<pre class="fragment fade-up"><code style="width: 120%">document.timeline.getAnimations();
+// returns all running  animations set on the document
+document.getElementById('my-element').play(keyframeEffects, options);
+// creates an Animation object instance with playback controls
+</code></pre>
+   </div>
+  </div>
+</section>
+
+
+      <section>
+          <h2>Yay, Animating with WAAPI!
+<span class="fragment fade-up">...but the browser support?</span></h2>
+          <a class="fragment fade-up" href="http://caniuse.com/#search=web%20animations" target="waapo"><img height="320" src="./img/waapo.jpg" alt="Web Animations Browser support"/></a>
+          <p class="fragment fade-up">That's a "No", right?</p>
+      </section>
+      <section>
+        <img class="fragment fade-up no-border" src="./img/heart.png" alt="Heart" height="250"/>
+        <h2 class="fragment fade-up"><a href="https://github.com/web-animations/web-animations-js" target="grihub">Web Animations JS Polyfill</a></h2>
+        <p class="fragment fade-up">Build WAAPI powered animations today!</p>
+      </section>
+
+      <section>
+        <h2>Defining the animation keyframes</h2>
+<pre class="fragment fade-up"><code style="max-height: 600px;">export default class ComicPanel extends Component({
+  frameTotal: number = 6;
+
+  animations = [{
+    layerId: 'comic-panel-layer-1',
+    image: 'img/racoonhero.png',
+    frameTotal: this.frameTotal,
+    keyframeSet: [
+      { backgroundPosition: '0 0' },
+      { backgroundPosition: '0 100%' }
+    ],
+    keyframeOptions: {
+      duration: 400,
+      fill: 'none',
+      direction: 'normal',
+      easing: `steps(${this.frameTotal - 1})`,
+      iterations: 'Infinity'
+    }
+  }];
+})
+</code></pre>
+      </section>
+<section>
+  <h2>Creating the component's HTML markup</h2>
+<pre class="fragment fade-up"><code style="max-height: 600px;">// src/ui/components/comic-panel/template.hbs 
+<div class="comic-panel">
+  <comic-panel-layer id={{layer.layerId}} @image={{layer.image}} @frameTotal={{layer.frameTotal}} />
+  <play-button class="play-button" onclick={{action togglePlayState}} @isPlaying={{isPlaying}} @play="Play" @pause="Woooosh!" />
+</div>
+</code></pre>
+</section>
+<!-- <section>
+<pre class="fragment fade-up"><code style="max-height: 600px;">export default class ComicPanel extends Component({
+  didInsertElement() {
+    const animation = this.animations[0];
+    const keyFrames = animation.keyframeSet;
+    const layerElement = document.getElementById(animation.layerId);
+
+    const timings = animation.keyframeOptions;
+    const keyframeEffect = new KeyframeEffect(layerElement, keyFrames, timings);
+
+    const animationInstance = document.timeline.play(keyframeEffect);
+    animationInstance.pause();
+    this.animation = animationInstance;
+  }
+})
+</code></pre>
+      </section> -->
+<section>
+<h2>Leveraging Glimmer's Lifecycle Hooks</h2>
+<pre><code style="max-height: 700px;">export default class ComicPanel extends Component({
+// ...
+  didInsertElement() {
+    const animation = this.animations[0];
+    const keyFrames = animation.keyframeSet;
+    const layerElement = document.getElementById(animation.layerId);
+
+    const timings = animation.keyframeOptions;
+    const keyframeEffect = new KeyframeEffect(layerElement, keyFrames, timings);
+
+    const animationInstance = document.timeline.play(keyframeEffect);
+    animationInstance.pause();
+    this.animation = animationInstance;
+  }
+})
+</pre></code></section>
+<section>
+  <h2>Re-using the component as a custom element</h2>
+<code><pre>// ...
+<link rel="stylesheet" href="app.css">
+// ...
+<comic-panel></comic-panel>
+<script src="app.js"></script>
+// ...
+</code></pre>
+</section>
+                                <section class="index-slide" data-background-image="./img/road2.gif">
+                                  <h1>The road ahead with Glimmer.js</h1>
+                                </section>
+                                <section>
+                                  <h2>Create modern web components today</h2>
+                                  <p class="fragment fade-up">and use them inside of Glimmer apps or outside in framework-agnostic applications</p>
+                                </section>
+
+                                <section>
+                                  <h2>Lots of work in progress</h2>
+                                  <ul>
+                                    <li class="fragment fade-up">Top-level component arguments</li>
+                                    <li class="fragment fade-up">Importing CommonJS modules</li>
+                                    <li class="fragment fade-up">Pre-packaged test suite similar to Ember</li>
+                                  </ul>
+                                  <p class="fragment fade-up">...but potential to bring us closer to re-usable, framework-agnostic webcomponents</p>
+                                </section>
+
+                                <section>
+                                  <h2>Wanna learn more about Glimmer?</h2>
+                                  <p class="fragment fade-up"><a href="https://glimmerjs.com" target="glimmerdoc">Dive into the Docs</a></p>
+                                  <p class="fragment fade-up"><a href="https://www.t-sauer.io/Glimmeroids/" target="glimmeroids">Enjoy this arcade game based on Glimmer.js</a></p>
+                                </section>
+
+                                <section>
+                                  <h2>Wanna learn more about Web Animations?</h2>
+                                  <p class="fragment fade-up"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API" target="glimmerdoc">Dive into the this excellent Guide on MDN</a></p>
+                                  <p class="fragment fade-up"><a href="https://www.t-sauer.io/Glimmeroids/" target="glimmeroids">Check out my Web Animations talk at EmberConf</a></p>
+                                </section>
+
+
+                                <section>
+                                        <h2>Wanna learn more about Ember?</h2>
+                                        <img src="./img/whw.png" alt="Women Helping Women"/>
+                                </section>
+
+
+                               <section data-background-image="./img/kim.gif">
+                                  <h2 class="col-2">Thank you! <br> Any Questions?</h2>
+                               </section>
+
+
+                          
+
+
 			</div>
+
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
 		<script>
+
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+				controls: true,
+				progress: true,
 				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+
 		</script>
+
 	</body>
 </html>
