@@ -1388,6 +1388,29 @@ body {
   color: #ffffff;
   text-shadow: none; }
 
+.reveal .index-slide-2 h1, .reveal .index-slide-2 h2, .reveal .index-slide-2 h3, .reveal .index-slide-2 p {
+  color: #085987;
+  text-shadow: none; }
+
 .reveal img.no-border {
   border: none !important;
   box-shadow: none !important; }
+
+.reveal .box {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 40px; }
+
+.reveal .panelists .col-3 {
+  border-radius: 50%;
+  height: 150px;
+  overflow: hidden;
+  text-align: center;
+  width: 150px;
+  margin: 0 5px; }
+  .reveal .panelists .col-3 img {
+    border: none;
+    position: relative;
+    top: -10px;
+    left: -30px;
+    max-width: 1200px;
+    max-height: 1200px; }

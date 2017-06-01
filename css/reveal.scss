@@ -1486,12 +1486,40 @@ body {
     text-shadow: none;
   }
  }
+ .index-slide-2 {
+    h1, h2, h3, p {
+      color: #085987;
+      text-shadow: none;
+    }
+  }
   img {
     &.no-border {
        border: none !important;
        box-shadow: none !important;
      }
-
   }
+
+  .box {
+     background-color: rgba(255, 255, 255, 0.7);
+     padding: 40px;
+   }
+  .panelists {
+     .col-3 {
+       border-radius: 50%;
+       height: 150px;
+       overflow: hidden;
+       text-align: center;
+       width: 150px;
+       margin: 0 5px;
+       img {
+         border: none;
+         position: relative;
+         top: -10px;
+         left: -30px;
+         max-width: 1200px;
+         max-height: 1200px;
+       }
+     }
+   }
 }
 
